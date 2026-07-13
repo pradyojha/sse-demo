@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <ul id="log"></ul>
+  <script>
+    const source = new EventSource('/events'); // in ideal case this would poin to an endpoint in different microservice for backend
+
+    source.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      const li = document.createElement('li');
+      li.textContent = `#${data.counter} at ${data.time}`;
+      document.getElementById('log').appendChild(li);
+    };
+
+    source.onerror = () => {
+      console.log('Connection lost — browser will auto-reconnect');
+    };
+  </script>
+</body>
+</html>
