@@ -31,4 +31,8 @@ app.get('/events', (req, res) => {
 });
 
 //This is the same server for serving UI to the browser and acting as server which pushes the SSE to client
-app.listen(3000, () => console.log('Server running on http://localhost:3000')); 
+if (require.main === module) {
+  app.listen(3000, () => console.log('Server running on http://localhost:3000'));
+}
+
+module.exports = app;
