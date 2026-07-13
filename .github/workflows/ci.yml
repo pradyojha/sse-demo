@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]      # run when commits land on main
+  pull_request:             # run on every PR, against any branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # GitHub gives you a fresh Linux VM per run
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm            # caches ~/.npm so dependencies don't re-download every run
+
+      - name: Install dependencies
+        run: npm ci             # clean install from package-lock.json, faster & reproducible
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build
+        run: npm run build --if-present   # only runs if a "build" script exists in package.json
