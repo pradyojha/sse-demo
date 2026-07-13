@@ -11,7 +11,7 @@ app.get('/events', (req, res) => {
     'Connection': 'keep-alive'
   });
 
-  // 2. Push an event every 2 seconds
+  // 2. Push an event every 2 seconds to the client from server side
   let counter = 0;
   const interval = setInterval(() => {
     counter++;
